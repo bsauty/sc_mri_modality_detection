@@ -23,7 +23,6 @@ setup(
     entry_points={
         'console_scripts': [
             'train_classifier=classifier.main:run_main',
-            'classify_acquisition=classifier.classify:run_main',
         ],
     },
 )

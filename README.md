@@ -51,12 +51,6 @@ With the provided config file we reached over 95% accuracy for each slice which 
 
 <img src="images/test_cm.png" width="320"> <img src="images/test_accuracy.png" width="270">
 
-To guess the contrast of a particular acquisition, prompt the `classify_acquisition` command that will appear after installation. It takes as input the path for the acquisition and fetches the best model obtained through training. Example below:
-
-```
-classify_acquisition path
-```
-
 We obtained a 100% accuracy for the full acquisitions over our testing dataset.
 
 <img src="images/acq-test_cm.png" width="320">

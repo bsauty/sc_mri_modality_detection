@@ -128,7 +128,7 @@ class MRIDataset(data.Dataset):
         self.label.append(label)
     
     
-def BIDSIterator(paths_centers):
+def BIDSIterator(paths_centers, type_of_set):
       
     paths_subjects = []
     lst_acqs = []
@@ -136,7 +136,7 @@ def BIDSIterator(paths_centers):
     ds = MRIDataset()
 
     for path_center in tqdm(paths_centers,
-                                     desc="Loading training set"):
+                         desc="Loading "+type_of_set+" set"):
        
         sub_list = [sub for sub in os.listdir(path_center) if "sub" in sub]
 

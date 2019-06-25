@@ -1,9 +1,8 @@
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
-import os
 import numpy as np
-from PIL import Image
 from matplotlib.colors import LinearSegmentedColormap
+
 
 def plot_confusion_matrix(y_true, y_pred, classes,
                           normalize=False,
@@ -12,6 +11,13 @@ def plot_confusion_matrix(y_true, y_pred, classes,
     """
     This function prints and plots the confusion matrix.
     Normalization can be applied by setting `normalize=True`.
+    :param y_true: list of true labels
+    :param y_pred: list of predicted labels
+    :param classes: list of strings containing names of the classes
+    :param normalize: boolen to normalize percentages
+    :param title: string
+    :param cmap: colormap
+    :return:
     """
 
     # Compute confusion matrix
@@ -43,30 +49,33 @@ def plot_confusion_matrix(y_true, y_pred, classes,
                     ha="center", va="center",
                     color="white" if cm[i, j] > thresh else "black")
     fig.tight_layout()
-    return 
+    return
 
 
-
-def plot_metrics(metrics, acc, classes,
-                title="Validation metrics",
-                cmap=None, full_acq=False):
-    
-    colors = [(1,1,1), (1,1,1), (1,1,1)]
-    cm = LinearSegmentedColormap.from_list("white",colors,N=1)
-    fig, ax = plt.subplots(figsize=(4,4))
+def plot_metrics(metrics, acc, classes, full_acq=False):
+    """
+    This function prints and displays the metrics as a table
+    :param metrics: array of metrics recall and precision
+    :param acc: accuracy
+    :param classes: names of the classes
+    :param full_acq: boolean to change the title of the figure
+    :return:
+    """
+    colors = [(1, 1, 1), (1, 1, 1), (1, 1, 1)]
+    cm = LinearSegmentedColormap.from_list("white", colors, N=1)
+    fig, ax = plt.subplots(figsize=(4, 4))
     im = ax.imshow(metrics, interpolation=None, cmap=cm)
     # We want to show all ticks...
     if full_acq:
-        title = "Accuracy over acquisitions = "+str(int(10000*acc)/100)+"%"
+        title = "Accuracy over acquisitions = " + str(int(10000 * acc) / 100) + "%"
     else:
-        title = "Accuracy over slices = "+str(int(10000*acc)/100)+"%"
+        title = "Accuracy over slices = " + str(int(10000 * acc) / 100) + "%"
     ax.set(xticks=np.arange(metrics.shape[1]),
            yticks=np.arange(metrics.shape[0]),
            # ... and label them with the respective list entries
            xticklabels=classes, yticklabels=["Recall", "Precision"],
            title=title
-)
-
+           )
 
     # Rotate the tick labels and set their alignment.
     plt.setp(ax.get_xticklabels(), rotation=45, ha="right",

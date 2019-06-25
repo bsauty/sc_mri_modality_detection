@@ -43,24 +43,29 @@ def plot_confusion_matrix(y_true, y_pred, classes,
                     ha="center", va="center",
                     color="white" if cm[i, j] > thresh else "black")
     fig.tight_layout()
-    fig.savefig('./temp/test_cm.png')
     return 
+
 
 
 def plot_metrics(metrics, acc, classes,
                 title="Validation metrics",
-                cmap=None):
+                cmap=None, full_acq=False):
     
     colors = [(1,1,1), (1,1,1), (1,1,1)]
     cm = LinearSegmentedColormap.from_list("white",colors,N=1)
     fig, ax = plt.subplots(figsize=(4,4))
     im = ax.imshow(metrics, interpolation=None, cmap=cm)
     # We want to show all ticks...
+    if full_acq:
+        title = "Accuracy over acquisitions = "+str(int(10000*acc)/100)+"%"
+    else:
+        title = "Accuracy over slices = "+str(int(10000*acc)/100)+"%"
     ax.set(xticks=np.arange(metrics.shape[1]),
            yticks=np.arange(metrics.shape[0]),
            # ... and label them with the respective list entries
            xticklabels=classes, yticklabels=["Recall", "Precision"],
-           title="Accuracy over slices = "+str(int(10000*acc)/100)+"%")
+           title=title
+)
 
 
     # Rotate the tick labels and set their alignment.
@@ -75,6 +80,5 @@ def plot_metrics(metrics, acc, classes,
                     ha="center", va="center",
                     color="black")
     fig.tight_layout()
-    
-    fig.savefig('./temp/test_metrics.png')
-    return 
+
+    return ax

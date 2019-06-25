@@ -49,8 +49,7 @@ After training is over a figure of the losses (training loss and validation loss
 
 With the provided config file we reached over 95% accuracy for each slice which allows us to predict an acquisition's modality with an even higher accuracy. Below is the confusion matrix over the test centers listed in  `config.json` for each slice (more than 2000 slices).
 
-<img src="images/test_cm.png" width="300">
-<img src="images/test_accuracy.png" width="300">
+<img src="images/test_cm.png" width="320"> <img src="images/test_accuracy.png" width="270">
 
 To guess the contrast of a particular acquisition, prompt the `classify_acquisition` command that will appear after installation. It takes as input the path for the acquisition and fetches the best model obtained through training. Example below:
 
@@ -60,7 +59,7 @@ classify_acquisition path
 
 We obtained a 100% accuracy for the full acquisitions over our testing dataset.
 
-<img src="images/acq-test_cm.png" width="300">
+<img src="images/acq-test_cm.png" width="320">
 
 
 ## Data

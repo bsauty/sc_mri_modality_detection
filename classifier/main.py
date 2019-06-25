@@ -53,7 +53,7 @@ def cmd_train(context):
     # the slices without labels and then concatenating all the datasets together
 
     # Training dataset -------------------------------------------------------
-    ds_train = loader.BIDSIterator(context["bids_path_train"])
+    ds_train = loader.BIDSIterator(context["bids_path_train"], "training")
 
     print(f"Loaded {len(ds_train)} axial slices for the training set.")
     train_loader = DataLoader(ds_train, batch_size=context["batch_size"],
@@ -61,7 +61,7 @@ def cmd_train(context):
                               num_workers=1)
     
     # Validation dataset ------------------------------------------------------
-    ds_val = loader.BIDSIterator(context["bids_path_validation"])
+    ds_val = loader.BIDSIterator(context["bids_path_validation"], "validation")
 
     print(f"Loaded {len(ds_val)} axial slices for the validation set.")
     val_loader = DataLoader(ds_val, batch_size=context["batch_size"],
@@ -207,7 +207,7 @@ def cmd_test(context):
     torch.cuda.set_device(gpu_number)
 
     # Testing dataset -------------------------------------------------------
-    ds_test = loader.BIDSIterator(context["bids_path_test"])
+    ds_test = loader.BIDSIterator(context["bids_path_test"], "testing")
 
     print(f"Loaded {len(ds_test)} axial slices for the testing set.")
     test_loader = DataLoader(ds_test, batch_size=context["batch_size"],
@@ -252,8 +252,10 @@ def cmd_test(context):
     # Plot normalized confusion matrix
     utils.plot_confusion_matrix(true_labels, guessed_labels, classes=class_names, normalize=True,
                           title='Normalized confusion matrix')
-    
+    #plt.savefig("./temp/test_cm.png")
+  
     utils.plot_metrics(np.array([recall, precision]), accuracy, class_names)
+    #plt.savefig("./temp/test_accuracy.png")
 
     
     tqdm.write(f"Accuracy over test slices : {accuracy}")

@@ -27,7 +27,7 @@ Then, install all requirements using `pip`:
 
 ```
 git clone https://github.com/bsauty/sc_mri_modality_detection
-cd sc_mri_dl_classifier
+cd sc_mri_modality_detection
 pip install -e .
 ```
 
